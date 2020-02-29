@@ -15,6 +15,8 @@
 ## Support and contact details
 I really appreciate any feedback on this repo: misaki.koonce@gmail.com
 
+## Technologies Used
+Vanilla JavaScript and Node.js
 
 ## License
 Copyright © 2020 under the MIT License
