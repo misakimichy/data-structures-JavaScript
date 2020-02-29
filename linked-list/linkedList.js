@@ -35,20 +35,54 @@ class LinkedList {
             let oldHead = this.head
             this.head = new Node(value)
             oldHead.next = this.head
-            this.head.prev = oldHead
+            this.head.next = oldHead
         }
     }
 
-    removeTail() {
-
+    deleteHad() {
+        if(!this.head) return null
+        let removedHead = this.head
+        // Only 1 node left
+        if(this.head === this.tail) {
+            this.head = this.tail = null
+        } else {
+            this.head = this.head.next
+            this.head.prev = null
+        }
+        return removedHead.value
     }
 
+    deleteTail() {
+        if(!this.tail) return null
+        let removedTail = this.tail
+        if(this.head === this.tail) {
+            this.head = this.tail = null
+        } else {
+            this.tail = this.tail.prev
+            this.tail.next = null
+        }
 
-    removeHead() {
-
+        return removedTail.value
     }
 
-    search() {
+    search(value) {
+        let currentNode = this.head
+        while(currentNode) {
+            if(currentNode.value === value) return currentNode
+            currentNode = currentNode.next
+        }
 
+        return null
     }
 }
+
+let list = new LinkedList()
+list.append(1)
+list.append(2)
+list.append(3)
+list.append(4)
+
+list.prepend(0)
+list.prepend(-1)
+list.prepend(-2)
+list.prepend(-3)
