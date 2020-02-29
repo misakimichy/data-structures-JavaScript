@@ -1,13 +1,4 @@
 // doubly link list
-
-class Node {
-    constructor(value, prev, next) {
-        this.value = value
-        this.prev = prev || null
-        this.next = next || null
-    }
-}
-
 class LinkedList {
     constructor() {
         this.head = this.tail = null
@@ -39,16 +30,16 @@ class LinkedList {
         }
     }
 
-    deleteHad() {
+    deleteHead() {
         if(!this.head) return null
         let removedHead = this.head
-        // Only 1 node left
         if(this.head === this.tail) {
             this.head = this.tail = null
         } else {
-            this.head = this.head.next
-            this.head.prev = null
+            this.head = this.head.prev
+            this.head.next = null
         }
+
         return removedHead.value
     }
 
@@ -66,23 +57,38 @@ class LinkedList {
     }
 
     search(value) {
-        let currentNode = this.head
+        let currentNode = this.head;
         while(currentNode) {
-            if(currentNode.value === value) return currentNode
-            currentNode = currentNode.next
+            if (currentNode.value === value) return currentNode;
+            currentNode = currentNode.next; 
         }
+        return null;
+    }
+}
 
-        return null
+class Node {
+    constructor(value, prev, next) {
+        this.value = value
+        this.prev = prev
+        this.next = next
     }
 }
 
 let list = new LinkedList()
+
+// Tail of this linked list is going to be 4
 list.append(1)
 list.append(2)
 list.append(3)
 list.append(4)
 
+// Head of this linked list is going to be -3
 list.prepend(0)
 list.prepend(-1)
 list.prepend(-2)
 list.prepend(-3)
+
+list.search(-2)
+
+list.deleteHead()
+list.deleteTail()
