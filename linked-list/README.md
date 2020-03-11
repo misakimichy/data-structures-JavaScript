@@ -30,7 +30,7 @@ When you want to add `4` between index 2 and index 3, all elements after index 3
 
 
 ## Run this code
-### Append and prepend methods
+### Append method
 After instantiate a linked list with a variable name `list`, let's check how `list` looks like:
 ```
 > list
@@ -40,57 +40,70 @@ LinkedList { tail: null, head: null }
 
 Since I haven't added any value to this linked list, the tail nor head have any value.
 
-Let's append four elements:
+Let's append one to this linked list:
 ```
-list.append(1)
-list.append(2)
-list.append(3)
-list.append(4)
-```
+> list.append(1)
 
-Then `list` has four values. The head value is `1` and the tails value is `4`:
-```
-> list
 LinkedList {
-  tail: Node {
-    value: 4,
-    prev: Node { value: 3, prev: [Node], next: [Circular] },
-    next: null
-  },
+  head: Node { value: 1, prev: null, next: null },
+  tail: Node { value: 1, prev: null, next: null }
+}
+```
+Now `list` has one value, and the head and the tail are the same value.
+
+Then let's add one more value:
+```
+> list.append(2)
+LinkedList {
   head: Node {
     value: 1,
-    prev: null,
-    next: Node { value: 2, prev: [Circular], next: [Node] }
-  }
-}
-
-```
-
-Now let's prepend four elements:
-```
-list.prepend(0)
-list.prepend(-1)
-list.prepend(-2)
-list.prepend(-3)
-```
-
-Now the tail value of `list` is `4` and the head value is `-3`:
-```
-> list
-
-LinkedList {
-  tail: Node {
-    value: 4,
-    prev: Node { value: 3, prev: [Node], next: [Circular] },
-    next: null
+    previous: null,
+    next: Node { value: 2, previous: [Circular], next: null }
   },
-  head: Node {
-    value: -3,
-    prev: null,
-    next: Node { value: -2, prev: null, next: [Circular] }
+  tail: Node {
+    value: 2,
+    previous: Node { value: 1, previous: null, next: [Circular] },
+    next: null
   }
 }
 ```
+Now the tail value becomes 2 and pointing a previous node of value 1.
+
+
+### Prepend method
+Now let's prepend a couple of elements to the same `list`:
+```
+> list.prepend(0)
+LinkedList {
+  head: Node {
+    value: 0,
+    next: Node { value: 1, next: [Node], previous: [Circular] },
+    previous: null
+  },
+  tail: Node {
+    value: 2,
+    next: null,
+    previous: Node { value: 1, next: [Circular], previous: [Node] }
+  }
+}
+> list.prepend(-1)
+LinkedList {
+  head: Node {
+    value: -1,
+    next: Node { value: 0, next: [Node], previous: [Circular] },
+    previous: null
+  },
+  tail: Node {
+    value: 2,
+    next: null,
+    previous: Node { value: 1, next: [Circular], previous: [Node] }
+  }
+}
+```
+After prepend two elements to the list, the head value becomes -1, and pointing a node with value 0 as a next node!
+
+Yay, it's working😊
+
 
 ### DeleteHead and deleteTail methods
 Now let's test `deleteHead()` method, which doesn't take any argument and delete the head/tail of the list:
