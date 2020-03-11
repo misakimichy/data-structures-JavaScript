@@ -1,8 +1,11 @@
+import Comparator from './../utils/Comparator'
+
 // doubly link list
 class LinkedList {
-    constructor() {
+    constructor(comparatorFunction) {
         this.head = null
         this.tail = null
+        this.compare = new Comparator(comparatorFunction)
     }
 
     // Add to the end (tail) of the list
@@ -35,30 +38,44 @@ class LinkedList {
         return this
     }
 
-    deleteHead() {
-        if(!this.head) return null
-        let removedHead = this.head
-        if(this.head === this.tail) {
-            this.head = this.tail = null
-        } else {
-            this.head = this.head.previous
-            this.head.next = null
+    delete(value) {
+        if(!this.head) {
+            return null
         }
+        let deletedNode = null
+        let currentNode = this.head
 
-        return removedHead.value
-    }
+        while(currentNode) {
+            if(this.compare.equal(currentNode.value, value)) {
+                deletedNode = currentNode
 
-    deleteTail() {
-        if(!this.tail) return null
-        let removedTail = this.tail
-        if(this.head === this.tail) {
-            this.head = this.tail = null
-        } else {
-            this.tail = this.tail.previous
-            this.tail.next = null
+                // If head is going to be deleted
+                if(deletedNode === this.head) {
+                    this.head = deletedNode.next
+                    if(this.head) {
+                        this.head.previous = null
+                    }
+                    // If all nodes in list has same value (the passed argument),
+                    // Then all of the nodes will be deleted.
+                    if(deletedNode === this.tail) {
+                        this.tail = null
+                    }
+
+                // if tail is going to be deleted
+                } else if (deletedNode === this.tail) {
+                    this.tail = deletedNode.previous
+                    this.tail.next = null
+                } else {
+                    const previousNode = deletedNode.previous
+                    const nextNode = deletedNode.next
+    
+                    previousNode.next = nextNode
+                    nextNode.previous = previousNode
+                }
+            } 
+            currentNode = currentNode.next
         }
-
-        return removedTail.value
+        return deletedNode
     }
 
     search(value) {
@@ -83,6 +100,9 @@ let list = new LinkedList()
 
 list.append(1)
 list.append(2)
-
+list.append(2)
+list.append(2)
 list.prepend(0)
 list.prepend(-1)
+
+list.delete(-1)

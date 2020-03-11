@@ -105,63 +105,13 @@ After prepend two elements to the list, the head value becomes -1, and pointing 
 Yay, it's working😊
 
 
-### DeleteHead and deleteTail methods
-Now let's test `deleteHead()` method, which doesn't take any argument and delete the head/tail of the list:
+### Delete method
+Delete the value of two from the `list`:
 ```
-> list.deleteHead()
--3
-
+> list.delete(2)
+Node { value: 2, next: null, previous: null }
 ```
-Now it deletes the head of the list. This is how the `link` looks like after the deletion:
-```
-> list
-LinkedList {
-  tail: Node {
-    value: 4,
-    prev: Node { value: 3, prev: [Node], next: [Circular] },
-    next: null
-  },
-  head: Node {
-    value: -2,
-    prev: null,
-    next: Node { value: -3, prev: null, next: [Circular] }
-  }
-}
-```
-Now the list head value is `-2`.
-Let's delete the tail of the list too:
-```
-> list.deleteTail()
-4
-```
-The tail node which value was 4 was deleted and now the `link` looks like this:
-```
-LinkedList {
-  tail: Node {
-    value: 3,
-    prev: Node { value: 2, prev: [Node], next: [Circular] },
-    next: null
-  },
-  head: Node {
-    value: -2,
-    prev: null,
-    next: Node { value: -3, prev: null, next: [Circular] }
-  }
-}
-
-```
-
-### Search Method
-Let's search an element of the `list`:
-```
-> list.search(-2)
-Node {
-  value: -2,
-  prev: null,
-  next: Node { value: -3, prev: undefined, next: [Circular] }
-}
-```
-Now the head node value is `-2`, so the `prev` is null.
+That returns the deleted node which value is 2. Since this node is deleted from the `list`, it doesn't point next nor previous node.
 
 
 ### Play around
